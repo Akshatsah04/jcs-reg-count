@@ -1,6 +1,6 @@
 export const JUNIOR_COMMITTEE_MEMBERS = [
   { name: "Akshita Sinha", registrations: 0 },
-  { name: "Ananya Singh", registrations: 0 },
+  { name: "Ananya Singh", registrations: 1 },
   { name: "Manasvi Bansal", registrations: 0 },
   { name: "Nehal Sharma", registrations: 0 },
   { name: "Rupashi Jain", registrations: 0 },
@@ -29,7 +29,7 @@ export const JUNIOR_COMMITTEE_MEMBERS = [
   { name: "Munira Shabbir Dairkee", registrations: 0 },
   { name: "Khanak", registrations: 0 },
   { name: "Kiana Agarwal", registrations: 0 },
-  { name: "Saisha Narang", registrations: 0 },
+  { name: "Saisha Narang", registrations: 1 },
   { name: "Sharvika Shekhar Muley", registrations: 0 },
   { name: "Shivanshi", registrations: 0 },
   { name: "Tanish Gupta", registrations: 0 },
