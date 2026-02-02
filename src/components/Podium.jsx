@@ -70,7 +70,7 @@ const Podium = ({ topThree }) => {
                             1st
                         </motion.span>
 
-                        <p className="text-yellow-950 font-extrabold text-xl sm:text-2xl text-center px-2 truncate w-full mb-1">{first.name}</p>
+                        <p className="text-yellow-950 font-extrabold text-xl sm:text-2xl text-center px-2 w-full mb-1">{first.name}</p>
                         <p className="text-yellow-900 font-bold text-sm sm:text-lg bg-yellow-200/40 px-3 py-1 rounded-full">{first.registrations} Reg</p>
                     </div>
                     {/* Base for 1st */}
