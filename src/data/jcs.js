@@ -4,7 +4,7 @@ export const JUNIOR_COMMITTEE_MEMBERS = [
   { name: "Aparna", registrations: 0 },
   { name: "Manasvi Bansal", registrations: 0 },
   { name: "Nehal Sharma", registrations: 0 },
-  { name: "Rupashi Jain", registrations: 0 },
+  { name: "Rupashi Jain", registrations: 1 },
   { name: "Vaani Dhiman", registrations: 0 },
   { name: "Kanika Dev", registrations: 0 },
   { name: "Kushagr Singh", registrations: 0 },
