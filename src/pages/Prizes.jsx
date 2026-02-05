@@ -74,7 +74,7 @@ const PrizeCard = ({ rank, title, reward, icon: Icon, color, delay, isRevealed, 
                 >
                     {image ? (
                         <div className="w-full h-48 mb-4 rounded-lg overflow-hidden border border-white/20 shadow-lg">
-                            <img src={image} alt={title} className="w-full h-full object-cover" />
+                            <img src={image} alt={title} className="w-full h-full object-contain" />
                         </div>
                     ) : (
                         <div className="w-full h-48 mb-4 rounded-lg bg-black/40 flex items-center justify-center border border-white/10">
@@ -148,7 +148,7 @@ const Prizes = () => {
                     delay={0.2}
                     isRevealed={isRevealedSilver}
                     timeLeft={timeLeftSilver}
-                    image="/images/prizes/silver.jpg"
+                    image="/prize/glass.png"
                 />
 
                 <PrizeCard
@@ -160,7 +160,7 @@ const Prizes = () => {
                     delay={0.1}
                     isRevealed={isRevealedGold}
                     timeLeft={timeLeftGold}
-                    image="/images/prizes/gold.jpg"
+                    image="/prize/ticket.png"
                 />
 
                 <PrizeCard
@@ -172,7 +172,7 @@ const Prizes = () => {
                     delay={0.3}
                     isRevealed={isRevealedBronze}
                     timeLeft={timeLeftBronze}
-                    image="/price/ferrero.png"
+                    image="/prize/ferrero.png"
                 />
             </div>
         </div>
