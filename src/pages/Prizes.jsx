@@ -1,8 +1,45 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Trophy, Medal, Award } from 'lucide-react';
+import { Trophy, Medal, Award, Lock, Clock } from 'lucide-react';
 
-const PrizeCard = ({ rank, title, reward, icon: Icon, color, delay }) => {
+// --- CONFIGURATION ---
+// Set the date when prizes should be revealed for each rank
+// Format: YYYY-MM-DDTHH:MM:SS
+const REVEAL_DATE_GOLD = new Date("2026-02-08T00:00:00").getTime();
+const REVEAL_DATE_SILVER = new Date("2026-02-07T00:00:00").getTime();
+const REVEAL_DATE_BRONZE = new Date("2026-02-06T00:00:00").getTime(); // Set to past date for testing
+
+const useCountdown = (targetDate) => {
+    const [timeLeft, setTimeLeft] = useState(targetDate - new Date().getTime());
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+            setTimeLeft(distance);
+
+            if (distance < 0) {
+                clearInterval(interval);
+            }
+        }, 1000);
+
+        return () => clearInterval(interval);
+    }, [targetDate]);
+
+    return Math.max(0, timeLeft);
+};
+
+const formatTime = (ms) => {
+    const days = Math.floor(ms / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((ms % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((ms % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((ms % (1000 * 60)) / 1000);
+    return { days, hours, minutes, seconds };
+};
+
+const PrizeCard = ({ rank, title, reward, icon: Icon, color, delay, isRevealed, timeLeft, image }) => {
+    const timeComponents = formatTime(timeLeft);
+
     return (
         <motion.div
             initial={{ opacity: 0, y: 30, rotateX: 10 }}
@@ -28,9 +65,46 @@ const PrizeCard = ({ rank, title, reward, icon: Icon, color, delay }) => {
 
             <div className="w-12 h-1 bg-white/20 rounded-full mb-6"></div>
 
-            <p className="text-gray-300 font-light leading-relaxed">
-                {reward}
-            </p>
+            {isRevealed ? (
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.5 }}
+                    className="w-full flex flex-col items-center"
+                >
+                    {image ? (
+                        <div className="w-full h-48 mb-4 rounded-lg overflow-hidden border border-white/20 shadow-lg">
+                            <img src={image} alt={title} className="w-full h-full object-cover" />
+                        </div>
+                    ) : (
+                        <div className="w-full h-48 mb-4 rounded-lg bg-black/40 flex items-center justify-center border border-white/10">
+                            <span className="text-gray-500 italic">Image Placeholder</span>
+                        </div>
+                    )}
+                    <p className="text-gray-300 font-light leading-relaxed">
+                        {reward}
+                    </p>
+                </motion.div>
+            ) : (
+                <div className="w-full flex flex-col items-center justify-center py-4">
+                    <Lock size={32} className="text-gray-500 mb-3 animate-pulse" />
+                    <p className="text-gray-400 text-sm uppercase tracking-widest mb-3">Revealing In</p>
+                    <div className="flex gap-2 font-mono text-lg text-yellow-400">
+                        <div className="bg-black/30 px-2 py-1 rounded">
+                            {String(timeComponents.days).padStart(2, '0')}d
+                        </div>
+                        <div className="bg-black/30 px-2 py-1 rounded">
+                            {String(timeComponents.hours).padStart(2, '0')}h
+                        </div>
+                        <div className="bg-black/30 px-2 py-1 rounded">
+                            {String(timeComponents.minutes).padStart(2, '0')}m
+                        </div>
+                        <div className="bg-black/30 px-2 py-1 rounded">
+                            {String(timeComponents.seconds).padStart(2, '0')}s
+                        </div>
+                    </div>
+                </div>
+            )}
 
             {/* Glossy overlay */}
             <div className="absolute inset-0 bg-gradient-to-tr from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
@@ -39,6 +113,15 @@ const PrizeCard = ({ rank, title, reward, icon: Icon, color, delay }) => {
 };
 
 const Prizes = () => {
+    // Individual timers for each prize
+    const timeLeftGold = useCountdown(REVEAL_DATE_GOLD);
+    const timeLeftSilver = useCountdown(REVEAL_DATE_SILVER);
+    const timeLeftBronze = useCountdown(REVEAL_DATE_BRONZE);
+
+    const isRevealedGold = timeLeftGold <= 0;
+    const isRevealedSilver = timeLeftSilver <= 0;
+    const isRevealedBronze = timeLeftBronze <= 0;
+
     return (
         <div className="min-h-screen pt-28 pb-12 px-4 container mx-auto">
             <motion.div
@@ -59,28 +142,37 @@ const Prizes = () => {
                 <PrizeCard
                     rank="2nd Place"
                     title="Silver Guardian"
-                    reward="Yet to be announced!"
+                    reward="Silver Tier Prize Bundle + Certificate"
                     icon={Medal}
                     color="shadow-[0_0_30px_rgba(192,192,192,0.15)] hover:shadow-[0_0_50px_rgba(192,192,192,0.3)] border-t-[6px] border-t-gray-300"
                     delay={0.2}
+                    isRevealed={isRevealedSilver}
+                    timeLeft={timeLeftSilver}
+                    image="/images/prizes/silver.jpg"
                 />
 
                 <PrizeCard
                     rank="1st Place"
                     title="Golden Legend"
-                    reward="Yet to be announced!"
+                    reward="Gold Tier Prize Bundle + Trophy + Certificate"
                     icon={Trophy}
                     color="shadow-[0_0_40px_rgba(234,179,8,0.2)] hover:shadow-[0_0_60px_rgba(234,179,8,0.4)] border-t-[8px] border-t-yellow-400 scale-105 z-10"
                     delay={0.1}
+                    isRevealed={isRevealedGold}
+                    timeLeft={timeLeftGold}
+                    image="/images/prizes/gold.jpg"
                 />
 
                 <PrizeCard
                     rank="3rd Place"
                     title="Bronze Titan"
-                    reward="Yet to be announced!"
+                    reward="Bronze Tier Prize Bundle + Certificate"
                     icon={Award}
                     color="shadow-[0_0_30px_rgba(251,146,60,0.15)] hover:shadow-[0_0_50px_rgba(251,146,60,0.3)] border-t-[6px] border-t-orange-400"
                     delay={0.3}
+                    isRevealed={isRevealedBronze}
+                    timeLeft={timeLeftBronze}
+                    image="/price/ferrero.png"
                 />
             </div>
         </div>

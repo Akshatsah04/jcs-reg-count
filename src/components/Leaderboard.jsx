@@ -38,6 +38,20 @@ const Leaderboard = () => {
             {/* Main Content */}
             <div className="container mx-auto pb-12">
                 <Podium topThree={topThree} />
+
+                {/* Message Section */}
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.5 }}
+                    className="flex justify-center my-8 px-4"
+                >
+                    <div className="px-8 py-4 bg-red-500/10 border border-red-500/30 rounded-xl backdrop-blur-md shadow-[0_0_20px_rgba(220,38,38,0.2)] hover:border-red-500/50 transition-colors duration-300">
+                        <p className="text-red-400 font-bold uppercase tracking-widest text-sm md:text-base text-center flex items-center gap-2">
+                            <span className="text-xl">⚠️</span> Each JC must register at least 20 participants individually to be eligible for prizes if you are in top 3<span className="text-xl">⚠️</span>
+                        </p>
+                    </div>
+                </motion.div>
                 <LeaderboardList list={rest} />
             </div>
         </div>
