@@ -154,7 +154,7 @@ const Prizes = () => {
                 <PrizeCard
                     rank="1st Place"
                     title="Golden Legend"
-                    reward="Gold Tier Prize"
+                    reward="Gold Tier Prize - concert ticket"
                     icon={Trophy}
                     color="shadow-[0_0_40px_rgba(234,179,8,0.2)] hover:shadow-[0_0_60px_rgba(234,179,8,0.4)] border-t-[8px] border-t-yellow-400 scale-105 z-10"
                     delay={0.1}
