@@ -142,7 +142,7 @@ const Prizes = () => {
                 <PrizeCard
                     rank="2nd Place"
                     title="Silver Guardian"
-                    reward="Silver Tier Prize Bundle + Certificate"
+                    reward="Silver Tier Prize"
                     icon={Medal}
                     color="shadow-[0_0_30px_rgba(192,192,192,0.15)] hover:shadow-[0_0_50px_rgba(192,192,192,0.3)] border-t-[6px] border-t-gray-300"
                     delay={0.2}
@@ -154,7 +154,7 @@ const Prizes = () => {
                 <PrizeCard
                     rank="1st Place"
                     title="Golden Legend"
-                    reward="Gold Tier Prize Bundle + Trophy + Certificate"
+                    reward="Gold Tier Prize"
                     icon={Trophy}
                     color="shadow-[0_0_40px_rgba(234,179,8,0.2)] hover:shadow-[0_0_60px_rgba(234,179,8,0.4)] border-t-[8px] border-t-yellow-400 scale-105 z-10"
                     delay={0.1}
@@ -166,7 +166,7 @@ const Prizes = () => {
                 <PrizeCard
                     rank="3rd Place"
                     title="Bronze Titan"
-                    reward="Bronze Tier Prize Bundle + Certificate"
+                    reward="Bronze Tier Prize"
                     icon={Award}
                     color="shadow-[0_0_30px_rgba(251,146,60,0.15)] hover:shadow-[0_0_50px_rgba(251,146,60,0.3)] border-t-[6px] border-t-orange-400"
                     delay={0.3}
